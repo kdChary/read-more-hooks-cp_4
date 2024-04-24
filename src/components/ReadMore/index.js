@@ -15,22 +15,12 @@ const ReadMore = props => {
   const {reactHooksDescription} = props
   const para = reactHooksDescription.slice(0, 170)
 
-  const [description, sliceDescription] = useState(para)
-  const [btnText, setBtnText] = useState('Read More')
+  const [more, toggleMore] = useState(false)
 
   const changeContent = () => {
-    if (btnText === 'Read More') {
-      setBtnText('Read Less')
-    } else {
-      setBtnText('Read More')
-    }
-
-    if (description.length > 170) {
-      sliceDescription(para)
-    } else {
-      sliceDescription(reactHooksDescription)
-    }
+    toggleMore(prevState => !prevState)
   }
+
   return (
     <MainContainer>
       <SubCards>
@@ -42,10 +32,10 @@ const ReadMore = props => {
           src="https://assets.ccbp.in/frontend/hooks/react-hooks-img.png"
           alt="react hooks"
         />
-        <Text para>{description}</Text>
+        <Text para>{more ? reactHooksDescription : para}</Text>
       </SubCards>
       <Button type="button" onClick={changeContent}>
-        {btnText}
+        {more ? 'Read Less' : 'Read More'}
       </Button>
     </MainContainer>
   )
